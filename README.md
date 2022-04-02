@@ -1,16 +1,3 @@
-# a_8085_helper
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# 8085 Assembler and Helper
+8085 Assembler and Helper is an open source project created with Flutter.
+8085 Assembler and Helper is a program that can assemble 8085 assembly code into opcode. It also has a helper that can help you to assemble 8085 assembly code For eg. you can search opcode for a specific instruction, or you can have a  manual of 8085 kit operations.
