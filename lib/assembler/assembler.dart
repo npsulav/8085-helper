@@ -1,5 +1,7 @@
 import 'dart:collection';
 
+import 'dart:convert';
+
 class Assembler {
   late String code;
   List<String> opcode = [];
@@ -18,6 +20,7 @@ class Assembler {
   }
 
   List<String> interpret({String code=""}) {
+
     List<String> returnString = [];
     if(a2ByteOpcode.contains(code.substring(0,3))){
       /// add the opcode of the first three letter opcode to the returning list
@@ -75,6 +78,18 @@ class Assembler {
     return returnString;
   }
 
+  List<String> multiLineInterpret({String code=""}) {
+    List<String> finalOpcode = <String>[];
+
+    LineSplitter ls = const LineSplitter();
+    List<String> opcodeLines = ls.convert(code);
+
+    for (var element in opcodeLines) {
+      finalOpcode.addAll(interpret(code: element));
+    }
+
+    return finalOpcode;
+  }
 
   void addByteInfo() {
 
