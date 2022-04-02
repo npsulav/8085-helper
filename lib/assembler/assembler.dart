@@ -4,11 +4,12 @@ class Assembler {
   late String code;
   List<String> opcode = [];
   HashMap opcodeMap = HashMap();
-  late List a2ByteOpcode;
-  late List a3ByteOpcode;
+  List a2ByteOpcode = [];
+  List a3ByteOpcode = [];
 
   Assembler(){
    addOpcode();
+   addByteInfo();
   }
 
   String assemble({code}) {
@@ -16,25 +17,96 @@ class Assembler {
     return opcodeMap[code];
   }
 
-  String interpret({code}) {
-    /// Todo: divide the line of code into tokens
+  List<String> interpret({String code=""}) {
+    List<String> returnString = [];
+    if(a2ByteOpcode.contains(code.substring(0,3))){
+      /// add the opcode of the first three letter opcode to the returning list
+      returnString.add(assemble(code: code.substring(0,3)));
+      /// add the remaining 1 bit data after opcode to list
+      returnString.add(code.substring(4,6));
+    }
+    else if(a2ByteOpcode.contains(code.substring(0,5))){
+      /// add the opcode of the first three letter opcode to the returning list
+      returnString.add(assemble(code: code.substring(0,5)));
+      /// add the remaining 1 bit data after opcode to list
+      returnString.add(code.substring(6,8));
+    }
+    else if(a2ByteOpcode.contains(code.substring(0,2))){
+      /// add the opcode of the first three letter opcode to the returning list
+      returnString.add(assemble(code: code.substring(0,2)));
+      /// add the remaining 1 bit data after opcode to list
+      returnString.add(code.substring(3,5));
+    }
 
-    return "CE 20";
+    else if(a3ByteOpcode.contains(code.substring(0,2))){
+      /// add the opcode of the first 2 letter opcode to the returning list
+      returnString.add(assemble(code: code.substring(0,2)));
+      /// add the remaining 2 bit data after opcode to list
+      returnString.add(code.substring(5,7));
+      returnString.add(code.substring(3,5));
+    }
+    else if(a3ByteOpcode.contains(code.substring(0,3))){
+      /// add the opcode of the first three letter opcode to the returning list
+      returnString.add(assemble(code: code.substring(0,3)));
+      /// add the remaining 2 bit data after opcode to list
+      returnString.add(code.substring(6,8));
+      returnString.add(code.substring(4,6));
+    }
+    else if(a3ByteOpcode.contains(code.substring(0,4))){
+      /// add the opcode of the first three letter opcode to the returning list
+      returnString.add(assemble(code: code.substring(0,4)));
+      /// add the remaining 2 bit data after opcode to list
+      returnString.add(code.substring(7,9));
+      returnString.add(code.substring(5,7));
+    }
+    else if(a3ByteOpcode.contains(code.substring(0,5))){
+      /// add the opcode of the first three letter opcode to the returning list
+      returnString.add(assemble(code: code.substring(0,5)));
+      /// add the remaining 2 bit data after opcode to list
+      returnString.add(code.substring(8,10));
+      returnString.add(code.substring(6,8));
+    }
+
+    else {
+      returnString.add(assemble(code: code));
+    }
+
+
+    return returnString;
   }
 
 
   void addByteInfo() {
 
-    // two byte opcodes
+
+
+    // 3b code, 4 letters
+    a3ByteOpcode.add("call");
+    a3ByteOpcode.add("lhld");
+    a3ByteOpcode.add("shld");
+
+    // 3b code, 5 letters
+    a3ByteOpcode.add("lxi b"); // comma
+    a3ByteOpcode.add("lxi d"); // comma
+    a3ByteOpcode.add("lxi h"); // comma
+    a3ByteOpcode.add("lxi sp"); // comma
+
+
+
+    // two byte opcodes, 3 letters
     a2ByteOpcode.add("aci");
     a2ByteOpcode.add("adi");
     a2ByteOpcode.add("ani");
-    a2ByteOpcode.add("in");
     a2ByteOpcode.add("out");
     a2ByteOpcode.add("sbi");
     a2ByteOpcode.add("sui");
     a2ByteOpcode.add("xri");
     a2ByteOpcode.add("ori");
+
+    // 2b code, 2 letters
+    a2ByteOpcode.add("in");
+
+    // 2b code, 5 letters
     a2ByteOpcode.add("mvi a"); // comma
     a2ByteOpcode.add("mvi b"); // comma
     a2ByteOpcode.add("mvi c"); // comma
@@ -44,33 +116,28 @@ class Assembler {
     a2ByteOpcode.add("mvi l"); // comma
     a2ByteOpcode.add("mvi m"); // comma
 
-    // three byte opcodes
-    a3ByteOpcode.add("call");
+    // 3b code, 2 letters
     a3ByteOpcode.add("cc");
-    a3ByteOpcode.add("cnc");
-    a3ByteOpcode.add("cnz");
     a3ByteOpcode.add("cp");
     a3ByteOpcode.add("cm");
-    a3ByteOpcode.add("cpe");
-    a3ByteOpcode.add("cpo");
     a3ByteOpcode.add("cz");
     a3ByteOpcode.add("jc");
+    a3ByteOpcode.add("jm");
+    a3ByteOpcode.add("jp");
+    a3ByteOpcode.add("jz");
+
+    // 3b code, 3 letters
+    a3ByteOpcode.add("cnc");
+    a3ByteOpcode.add("cnz");
+    a3ByteOpcode.add("cpe");
+    a3ByteOpcode.add("cpo");
     a3ByteOpcode.add("jnc");
     a3ByteOpcode.add("jnz");
-    a3ByteOpcode.add("jm");
     a3ByteOpcode.add("jmp");
-    a3ByteOpcode.add("jp");
     a3ByteOpcode.add("jpe");
     a3ByteOpcode.add("jpo");
-    a3ByteOpcode.add("jz");
     a3ByteOpcode.add("lda");
-    a3ByteOpcode.add("lhld");
-    a3ByteOpcode.add("shld");
     a3ByteOpcode.add("sta");
-    a3ByteOpcode.add("lxi b"); // comma
-    a3ByteOpcode.add("lxi d"); // comma
-    a3ByteOpcode.add("lxi h"); // comma
-    a3ByteOpcode.add("lxi sp"); // comma
 
   }
 
