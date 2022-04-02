@@ -4,6 +4,8 @@ class Assembler {
   late String code;
   List<String> opcode = [];
   HashMap opcodeMap = HashMap();
+  late List a2ByteOpcode;
+  late List a3ByteOpcode;
 
   Assembler(){
    addOpcode();
@@ -14,7 +16,66 @@ class Assembler {
     return opcodeMap[code];
   }
 
+  String interpret({code}) {
+    /// Todo: divide the line of code into tokens
+
+    return "CE 20";
+  }
+
+
+  void addByteInfo() {
+
+    // two byte opcodes
+    a2ByteOpcode.add("aci");
+    a2ByteOpcode.add("adi");
+    a2ByteOpcode.add("ani");
+    a2ByteOpcode.add("in");
+    a2ByteOpcode.add("out");
+    a2ByteOpcode.add("sbi");
+    a2ByteOpcode.add("sui");
+    a2ByteOpcode.add("xri");
+    a2ByteOpcode.add("ori");
+    a2ByteOpcode.add("mvi a"); // comma
+    a2ByteOpcode.add("mvi b"); // comma
+    a2ByteOpcode.add("mvi c"); // comma
+    a2ByteOpcode.add("mvi d"); // comma
+    a2ByteOpcode.add("mvi e"); // comma
+    a2ByteOpcode.add("mvi h"); // comma
+    a2ByteOpcode.add("mvi l"); // comma
+    a2ByteOpcode.add("mvi m"); // comma
+
+    // three byte opcodes
+    a3ByteOpcode.add("call");
+    a3ByteOpcode.add("cc");
+    a3ByteOpcode.add("cnc");
+    a3ByteOpcode.add("cnz");
+    a3ByteOpcode.add("cp");
+    a3ByteOpcode.add("cm");
+    a3ByteOpcode.add("cpe");
+    a3ByteOpcode.add("cpo");
+    a3ByteOpcode.add("cz");
+    a3ByteOpcode.add("jc");
+    a3ByteOpcode.add("jnc");
+    a3ByteOpcode.add("jnz");
+    a3ByteOpcode.add("jm");
+    a3ByteOpcode.add("jmp");
+    a3ByteOpcode.add("jp");
+    a3ByteOpcode.add("jpe");
+    a3ByteOpcode.add("jpo");
+    a3ByteOpcode.add("jz");
+    a3ByteOpcode.add("lda");
+    a3ByteOpcode.add("lhld");
+    a3ByteOpcode.add("shld");
+    a3ByteOpcode.add("sta");
+    a3ByteOpcode.add("lxi b"); // comma
+    a3ByteOpcode.add("lxi d"); // comma
+    a3ByteOpcode.add("lxi h"); // comma
+    a3ByteOpcode.add("lxi sp"); // comma
+
+  }
+
   void addOpcode(){
+    /// all opcodes
     opcodeMap.putIfAbsent('aci', () => "CE");
     opcodeMap.putIfAbsent('adc a', () => "8F");
     opcodeMap.putIfAbsent('adc b', () => "88");
