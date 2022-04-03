@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:preload_page_view/preload_page_view.dart';
 
 import '../assembler_screen/assembler_screen_view.dart';
+import '../tools_screen/tools_screen_view.dart';
 import 'home_view_logic.dart';
 
 class HomeViewView extends StatefulWidget {
@@ -27,6 +28,14 @@ class _HomeViewViewState extends State<HomeViewView> {
       appBar: AppBar(
         title: const Text(AppStrings.appName),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+        Get.toNamed("/assembler");
+        },
+        child: const Icon(
+            Icons.code
+        ),
+      ),
       body: PreloadPageView(
         controller: controller,
         onPageChanged: (int index) {
@@ -36,7 +45,7 @@ class _HomeViewViewState extends State<HomeViewView> {
         children: [
           RefrenceScreenView(),
           LandingScreenView(),
-          AssemblerScreenView()
+          ToolsScreenView()
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

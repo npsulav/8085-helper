@@ -22,56 +22,64 @@ class Assembler {
   List<String> interpret({String code=""}) {
 
     List<String> returnString = [];
-    if(a2ByteOpcode.contains(code.substring(0,3))){
-      /// add the opcode of the first three letter opcode to the returning list
-      returnString.add(assemble(code: code.substring(0,3)));
-      /// add the remaining 1 bit data after opcode to list
-      returnString.add(code.substring(4,6));
-    }
-    else if(a2ByteOpcode.contains(code.substring(0,5))){
-      /// add the opcode of the first three letter opcode to the returning list
-      returnString.add(assemble(code: code.substring(0,5)));
-      /// add the remaining 1 bit data after opcode to list
-      returnString.add(code.substring(6,8));
-    }
-    else if(a2ByteOpcode.contains(code.substring(0,2))){
-      /// add the opcode of the first three letter opcode to the returning list
-      returnString.add(assemble(code: code.substring(0,2)));
-      /// add the remaining 1 bit data after opcode to list
-      returnString.add(code.substring(3,5));
-    }
-
-    else if(a3ByteOpcode.contains(code.substring(0,2))){
-      /// add the opcode of the first 2 letter opcode to the returning list
-      returnString.add(assemble(code: code.substring(0,2)));
-      /// add the remaining 2 bit data after opcode to list
-      returnString.add(code.substring(5,7));
-      returnString.add(code.substring(3,5));
-    }
-    else if(a3ByteOpcode.contains(code.substring(0,3))){
-      /// add the opcode of the first three letter opcode to the returning list
-      returnString.add(assemble(code: code.substring(0,3)));
-      /// add the remaining 2 bit data after opcode to list
-      returnString.add(code.substring(6,8));
-      returnString.add(code.substring(4,6));
-    }
-    else if(a3ByteOpcode.contains(code.substring(0,4))){
-      /// add the opcode of the first three letter opcode to the returning list
-      returnString.add(assemble(code: code.substring(0,4)));
-      /// add the remaining 2 bit data after opcode to list
-      returnString.add(code.substring(7,9));
-      returnString.add(code.substring(5,7));
-    }
-    else if(a3ByteOpcode.contains(code.substring(0,5))){
-      /// add the opcode of the first three letter opcode to the returning list
-      returnString.add(assemble(code: code.substring(0,5)));
-      /// add the remaining 2 bit data after opcode to list
-      returnString.add(code.substring(8,10));
-      returnString.add(code.substring(6,8));
-    }
-
-    else {
-      returnString.add(assemble(code: code));
+    try {
+      if(a2ByteOpcode.contains(code.substring(0,3))){
+        /// add the opcode of the first three letter opcode to the returning list
+        returnString.add(assemble(code: code.substring(0,3)));
+        /// add the remaining 1 bit data after opcode to list
+        returnString.add(code.substring(4,6));
+      }
+      else if(a2ByteOpcode.contains(code.substring(0,5))){
+        /// add the opcode of the first three letter opcode to the returning list
+        returnString.add(assemble(code: code.substring(0,5)));
+        /// add the remaining 1 bit data after opcode to list
+        returnString.add(code.substring(6,8));
+      }
+      else if(a2ByteOpcode.contains(code.substring(0,2))){
+        /// add the opcode of the first three letter opcode to the returning list
+        returnString.add(assemble(code: code.substring(0,2)));
+        /// add the remaining 1 bit data after opcode to list
+        returnString.add(code.substring(3,5));
+      }
+      
+      else if(a3ByteOpcode.contains(code.substring(0,2))){
+        /// add the opcode of the first 2 letter opcode to the returning list
+        returnString.add(assemble(code: code.substring(0,2)));
+        /// add the remaining 2 bit data after opcode to list
+        returnString.add(code.substring(5,7));
+        returnString.add(code.substring(3,5));
+      }
+      else if(a3ByteOpcode.contains(code.substring(0,3))){
+        /// add the opcode of the first three letter opcode to the returning list
+        returnString.add(assemble(code: code.substring(0,3)));
+        /// add the remaining 2 bit data after opcode to list
+        returnString.add(code.substring(6,8));
+        returnString.add(code.substring(4,6));
+      }
+      else if(a3ByteOpcode.contains(code.substring(0,4))){
+        /// add the opcode of the first three letter opcode to the returning list
+        returnString.add(assemble(code: code.substring(0,4)));
+        /// add the remaining 2 bit data after opcode to list
+        returnString.add(code.substring(7,9));
+        returnString.add(code.substring(5,7));
+      }
+      else if(a3ByteOpcode.contains(code.substring(0,5))){
+        /// add the opcode of the first three letter opcode to the returning list
+        returnString.add(assemble(code: code.substring(0,5)));
+        /// add the remaining 2 bit data after opcode to list
+        returnString.add(code.substring(8,10));
+        returnString.add(code.substring(6,8));
+      }
+      
+      else if(opcodeMap.containsKey(code)) {
+        returnString.add(assemble(code: code));
+      }
+      
+      else {
+        returnString.add("Code Error");
+      }
+    } on RangeError catch (e) {
+      returnString.add("Code Error");
     }
 
 
@@ -85,7 +93,11 @@ class Assembler {
     List<String> opcodeLines = ls.convert(code);
 
     for (var element in opcodeLines) {
-      finalOpcode.addAll(interpret(code: element));
+      if (!element.trim().startsWith(";")) {
+        if(element.trim().isNotEmpty) {
+          finalOpcode.addAll(interpret(code: element.trim()));
+        }
+      }
     }
 
     return finalOpcode;
@@ -255,69 +267,69 @@ class Assembler {
     opcodeMap.putIfAbsent('lxi d', () => "11");
     opcodeMap.putIfAbsent('lxi h', () => "21");
     opcodeMap.putIfAbsent('lxi sp', () => "31");
-    opcodeMap.putIfAbsent('mov a, a', () => "7F");
-    opcodeMap.putIfAbsent('mov a, b', () => "78");
-    opcodeMap.putIfAbsent('mov a, c', () => "79");
-    opcodeMap.putIfAbsent('mov a, d', () => "7A");
-    opcodeMap.putIfAbsent('mov a, e', () => "7B");
-    opcodeMap.putIfAbsent('mov a, h', () => "7C");
-    opcodeMap.putIfAbsent('mov a, l', () => "7D");
-    opcodeMap.putIfAbsent('mov a, m', () => "7E");
-    opcodeMap.putIfAbsent('mov b, a', () => "47");
-    opcodeMap.putIfAbsent('mov b, b', () => "40");
-    opcodeMap.putIfAbsent('mov b, c', () => "41");
-    opcodeMap.putIfAbsent('mov b, d', () => "42");
-    opcodeMap.putIfAbsent('mov b, e', () => "43");
-    opcodeMap.putIfAbsent('mov b, h', () => "44");
-    opcodeMap.putIfAbsent('mov b, l', () => "45");
-    opcodeMap.putIfAbsent('mov b, m', () => "46");
-    opcodeMap.putIfAbsent('mov c, a', () => "4F");
-    opcodeMap.putIfAbsent('mov c, b', () => "48");
-    opcodeMap.putIfAbsent('mov c, c', () => "49");
-    opcodeMap.putIfAbsent('mov c, d', () => "4A");
-    opcodeMap.putIfAbsent('mov c, e', () => "4B");
-    opcodeMap.putIfAbsent('mov c, h', () => "4C");
-    opcodeMap.putIfAbsent('mov c, l', () => "4D");
-    opcodeMap.putIfAbsent('mov c, m', () => "4E");
-    opcodeMap.putIfAbsent('mov d, a', () => "57");
-    opcodeMap.putIfAbsent('mov d, b', () => "50");
-    opcodeMap.putIfAbsent('mov d, c', () => "51");
-    opcodeMap.putIfAbsent('mov d, d', () => "52");
-    opcodeMap.putIfAbsent('mov d, e', () => "53");
-    opcodeMap.putIfAbsent('mov d, h', () => "54");
-    opcodeMap.putIfAbsent('mov d, l', () => "55");
-    opcodeMap.putIfAbsent('mov d, m', () => "56");
-    opcodeMap.putIfAbsent('mov e, a', () => "5F");
-    opcodeMap.putIfAbsent('mov e, b', () => "58");
-    opcodeMap.putIfAbsent('mov e, c', () => "59");
-    opcodeMap.putIfAbsent('mov e, d', () => "5A");
-    opcodeMap.putIfAbsent('mov e, e', () => "5B");
-    opcodeMap.putIfAbsent('mov e, h', () => "5C");
-    opcodeMap.putIfAbsent('mov e, l', () => "5D");
-    opcodeMap.putIfAbsent('mov e, m', () => "5E");
-    opcodeMap.putIfAbsent('mov h, a', () => "67");
-    opcodeMap.putIfAbsent('mov h, b', () => "60");
-    opcodeMap.putIfAbsent('mov h, c', () => "61");
-    opcodeMap.putIfAbsent('mov h, d', () => "62");
-    opcodeMap.putIfAbsent('mov h, e', () => "63");
-    opcodeMap.putIfAbsent('mov h, h', () => "64");
-    opcodeMap.putIfAbsent('mov h, l', () => "65");
-    opcodeMap.putIfAbsent('mov h, m', () => "66");
-    opcodeMap.putIfAbsent('mov l, a', () => "6F");
-    opcodeMap.putIfAbsent('mov l, b', () => "68");
-    opcodeMap.putIfAbsent('mov l, c', () => "69");
-    opcodeMap.putIfAbsent('mov l, d', () => "6A");
-    opcodeMap.putIfAbsent('mov l, e', () => "6B");
-    opcodeMap.putIfAbsent('mov l, h', () => "6C");
-    opcodeMap.putIfAbsent('mov l, l', () => "6D");
-    opcodeMap.putIfAbsent('mov l, m', () => "6E");
-    opcodeMap.putIfAbsent('mov m, a', () => "77");
-    opcodeMap.putIfAbsent('mov m, b', () => "70");
-    opcodeMap.putIfAbsent('mov m, c', () => "71");
-    opcodeMap.putIfAbsent('mov m, d', () => "72");
-    opcodeMap.putIfAbsent('mov m, e', () => "73");
-    opcodeMap.putIfAbsent('mov m, h', () => "74");
-    opcodeMap.putIfAbsent('mov m, l', () => "75");
+    opcodeMap.putIfAbsent('mov a,a', () => "7F");
+    opcodeMap.putIfAbsent('mov a,b', () => "78");
+    opcodeMap.putIfAbsent('mov a,c', () => "79");
+    opcodeMap.putIfAbsent('mov a,d', () => "7A");
+    opcodeMap.putIfAbsent('mov a,e', () => "7B");
+    opcodeMap.putIfAbsent('mov a,h', () => "7C");
+    opcodeMap.putIfAbsent('mov a,l', () => "7D");
+    opcodeMap.putIfAbsent('mov a,m', () => "7E");
+    opcodeMap.putIfAbsent('mov b,a', () => "47");
+    opcodeMap.putIfAbsent('mov b,b', () => "40");
+    opcodeMap.putIfAbsent('mov b,c', () => "41");
+    opcodeMap.putIfAbsent('mov b,d', () => "42");
+    opcodeMap.putIfAbsent('mov b,e', () => "43");
+    opcodeMap.putIfAbsent('mov b,h', () => "44");
+    opcodeMap.putIfAbsent('mov b,l', () => "45");
+    opcodeMap.putIfAbsent('mov b,m', () => "46");
+    opcodeMap.putIfAbsent('mov c,a', () => "4F");
+    opcodeMap.putIfAbsent('mov c,b', () => "48");
+    opcodeMap.putIfAbsent('mov c,c', () => "49");
+    opcodeMap.putIfAbsent('mov c,d', () => "4A");
+    opcodeMap.putIfAbsent('mov c,e', () => "4B");
+    opcodeMap.putIfAbsent('mov c,h', () => "4C");
+    opcodeMap.putIfAbsent('mov c,l', () => "4D");
+    opcodeMap.putIfAbsent('mov c,m', () => "4E");
+    opcodeMap.putIfAbsent('mov d,a', () => "57");
+    opcodeMap.putIfAbsent('mov d,b', () => "50");
+    opcodeMap.putIfAbsent('mov d,c', () => "51");
+    opcodeMap.putIfAbsent('mov d,d', () => "52");
+    opcodeMap.putIfAbsent('mov d,e', () => "53");
+    opcodeMap.putIfAbsent('mov d,h', () => "54");
+    opcodeMap.putIfAbsent('mov d,l', () => "55");
+    opcodeMap.putIfAbsent('mov d,m', () => "56");
+    opcodeMap.putIfAbsent('mov e,a', () => "5F");
+    opcodeMap.putIfAbsent('mov e,b', () => "58");
+    opcodeMap.putIfAbsent('mov e,c', () => "59");
+    opcodeMap.putIfAbsent('mov e,d', () => "5A");
+    opcodeMap.putIfAbsent('mov e,e', () => "5B");
+    opcodeMap.putIfAbsent('mov e,h', () => "5C");
+    opcodeMap.putIfAbsent('mov e,l', () => "5D");
+    opcodeMap.putIfAbsent('mov e,m', () => "5E");
+    opcodeMap.putIfAbsent('mov h,a', () => "67");
+    opcodeMap.putIfAbsent('mov h,b', () => "60");
+    opcodeMap.putIfAbsent('mov h,c', () => "61");
+    opcodeMap.putIfAbsent('mov h,d', () => "62");
+    opcodeMap.putIfAbsent('mov h,e', () => "63");
+    opcodeMap.putIfAbsent('mov h,h', () => "64");
+    opcodeMap.putIfAbsent('mov h,l', () => "65");
+    opcodeMap.putIfAbsent('mov h,m', () => "66");
+    opcodeMap.putIfAbsent('mov l,a', () => "6F");
+    opcodeMap.putIfAbsent('mov l,b', () => "68");
+    opcodeMap.putIfAbsent('mov l,c', () => "69");
+    opcodeMap.putIfAbsent('mov l,d', () => "6A");
+    opcodeMap.putIfAbsent('mov l,e', () => "6B");
+    opcodeMap.putIfAbsent('mov l,h', () => "6C");
+    opcodeMap.putIfAbsent('mov l,l', () => "6D");
+    opcodeMap.putIfAbsent('mov l,m', () => "6E");
+    opcodeMap.putIfAbsent('mov m,a', () => "77");
+    opcodeMap.putIfAbsent('mov m,b', () => "70");
+    opcodeMap.putIfAbsent('mov m,c', () => "71");
+    opcodeMap.putIfAbsent('mov m,d', () => "72");
+    opcodeMap.putIfAbsent('mov m,e', () => "73");
+    opcodeMap.putIfAbsent('mov m,h', () => "74");
+    opcodeMap.putIfAbsent('mov m,l', () => "75");
     opcodeMap.putIfAbsent('mvi a', () => "3E");
     opcodeMap.putIfAbsent('mvi b', () => "06");
     opcodeMap.putIfAbsent('mvi c', () => "0E");

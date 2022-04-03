@@ -47,6 +47,16 @@ void main() {
     test("Multi Line Test", () {
       expect(assembler.multiLineInterpret(code: '''adc a\nin 20h\naci 20h'''), ["8F","DB","20","CE","20"]);
     });
+
+    test("Multi Line Test Code Error", () {
+      expect(assembler.multiLineInterpret(code: '''oc\nin 20h\naci 20h'''), ["Code Error","DB","20","CE","20"]);
+    });
+
+
+    test("Code Error", () {
+      expect(assembler.multiLineInterpret(code: '''mov a,20h'''), ["Code Error"]);
+      expect(assembler.multiLineInterpret(code: '''mov a,20h\nin 20h'''), ["Code Error","DB","20"]);
+    });
   });
   
 }

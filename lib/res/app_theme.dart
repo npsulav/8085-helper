@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 ThemeData appTheme() {
   return ThemeData(
+    primaryColor: AppColors.primary,
+    fontFamily: GoogleFonts.abel().fontFamily,
     appBarTheme:  AppBarTheme(
       backgroundColor: AppColors.primary,
       centerTitle: true,
@@ -11,6 +13,7 @@ ThemeData appTheme() {
         color: Colors.white,
         fontWeight: FontWeight.w700,
       ),
+
       iconTheme: const IconThemeData(
         color: Colors.white
       )
@@ -19,6 +22,9 @@ ThemeData appTheme() {
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       selectedItemColor: AppColors.primary,
     ),
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: AppColors.primary
+    )
 
   );
 }
@@ -28,3 +34,4 @@ IconThemeData iconThemeData() {
       color: Colors.white
   );
 }
+
