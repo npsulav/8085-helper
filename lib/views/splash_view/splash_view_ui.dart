@@ -16,7 +16,7 @@ class _SplashViewViewState extends State<SplashViewView> {
   @override
   void initState() {
     /// create a Timer for navigating to another screen
-    Future.delayed(const Duration(seconds: 4), () {
+    Future.delayed(const Duration(seconds: 2), () {
       Get.offAndToNamed("/home");
     });
     super.initState();
@@ -43,21 +43,24 @@ class _SplashViewViewState extends State<SplashViewView> {
             radius: context.width * 0.12,
             backgroundImage: const AssetImage("assets/images.png"),
           ),
-          Padding(
+          Container(
             padding: const EdgeInsets.all(8.0),
             child:
-              AnimatedTextKit(
-                animatedTexts: [
-                  TypewriterAnimatedText(
-                    AppStrings.appName.toUpperCase(),
-                    speed: const Duration(milliseconds: 150),
-                    textStyle:  GoogleFonts.abel(
-                        fontSize: 0.054 * context.width, fontWeight: FontWeight.bold),),
-                ],
-                pause: const Duration(milliseconds: 1000),
-                displayFullTextOnTap: true,
-                stopPauseOnTap: true,
-              )
+              // AnimatedTextKit(
+              //   animatedTexts: [
+              //     TypewriterAnimatedText(
+              //       AppStrings.appName.toUpperCase(),
+              //       speed: const Duration(milliseconds: 150),
+              //       textStyle: TextStyle(
+              //           fontSize: 0.054 * context.width, fontWeight: FontWeight.bold),),
+              //   ],
+              //   displayFullTextOnTap: true,
+              //   stopPauseOnTap: true,
+              // )
+              Text(AppStrings.appName.toUpperCase(),
+                  style: TextStyle(
+                      fontSize: 0.054 * context.width,
+                      fontWeight: FontWeight.bold)),
           )
         ],
       ),
