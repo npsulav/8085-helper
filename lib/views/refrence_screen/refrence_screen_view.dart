@@ -9,6 +9,14 @@ class RefrenceScreenView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Center(
+          child: Image.asset("assets/logo.jpg"),
+        ),
+        Text("In Progress - 8085 Simulator", style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25),)
+      ],
+    );
   }
 }

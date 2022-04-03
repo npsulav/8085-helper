@@ -11,8 +11,93 @@ class LandingScreenView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [Text("Hello")],
-    );
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+        Container(
+        width: context.width,
+        margin: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              colorFilter:
+              ColorFilter.mode(Colors.black.withAlpha(50), BlendMode.dstATop),
+              image: const AssetImage("assets/bg.jpg"),
+            )),
+        child: Column(
+          children: const [
+            Text("Code of the day",
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 17),),
+            Text("mov a,b",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),),
+            Divider(color: Colors.black,),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text("It is used to move the content"
+                  " of b register to accumulator. This code is 1 byte code.",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.black, fontWeight: FontWeight.w600),),
+            ),
+          ],
+        ),
+      ),
+
+      Container(
+        padding: const EdgeInsets.only(left: 15),
+        child: const Text("Resources",
+          style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),),
+      ),
+
+      Padding(
+        padding: const EdgeInsets.only(left: 15.0,right: 15),
+        child: GridView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 250,
+                childAspectRatio: 3 / 2.5,
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 20),
+            itemCount: 1,
+            padding: const EdgeInsets.only(top: 20),
+            itemBuilder: (BuildContext ctx, index) {
+              return InkWell(
+                onTap: () {
+                },
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.center,
+
+                        decoration: BoxDecoration(
+                            color: Colors.black.withOpacity(0.4),
+                            image: const DecorationImage(
+                                fit: BoxFit.cover,
+                                image: NetworkImage(
+                                    "https://i.ytimg.com/an_webp/opUTI6y-Iuw/mqdefault_6s.webp?du=3000&sqp=CIj2ppIG&rs=AOn4CLBuSlQMpxVkvdTqC0Jt4Lwx8GB55A")),
+                            borderRadius: BorderRadius.circular(15)),
+                      ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(top: 18.0),
+                      child: Text("VIDEO: How to operate 8085 kit",
+                        style: TextStyle(fontWeight: FontWeight
+                            .bold),),
+                    )
+                  ],
+                ),
+              );
+            }),
+      )
+
+      ],
+    ),);
   }
 }

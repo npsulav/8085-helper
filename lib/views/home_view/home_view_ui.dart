@@ -57,7 +57,7 @@ class _HomeViewViewState extends State<HomeViewView> {
         },
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.book),
+            icon: Icon(CupertinoIcons.keyboard),
             label: AppStrings.reference,
           ),
           BottomNavigationBarItem(
@@ -65,7 +65,7 @@ class _HomeViewViewState extends State<HomeViewView> {
             label: AppStrings.home,
           ),
           BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.arrowtriangle_right_circle),
+            icon: Icon(Icons.map),
             label: AppStrings.assembler,
           ),
         ],
