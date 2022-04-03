@@ -39,6 +39,8 @@ dependencies:
   animated_text_kit: ^4.2.1
   preload_page_view:
   creamy_field:
+  url_launcher:
+  webview_flutter:
 
 dev_dependencies:
   flutter_test:

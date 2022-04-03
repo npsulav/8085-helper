@@ -20,7 +20,7 @@ class HomeViewView extends StatefulWidget {
 class _HomeViewViewState extends State<HomeViewView> {
   final HomeViewLogic logic = Get.put(HomeViewLogic());
   int position = 1;
-  PreloadPageController controller = PreloadPageController();
+  PreloadPageController controller = PreloadPageController(initialPage: 1);
 
   @override
   Widget build(BuildContext context) {

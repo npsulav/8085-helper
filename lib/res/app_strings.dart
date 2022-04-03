@@ -5,4 +5,7 @@ class AppStrings {
   static const String reference = "Simulator";
   static const String home = "Home";
   static const String assembler = "Opcodes";
+
+  // endpoints
+static const String videoEndpoint = "https://raw.githubusercontent.com/npsulav/mock-rest-datas/main/videos80085.json";
 }
