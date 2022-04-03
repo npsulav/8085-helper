@@ -16,9 +16,10 @@ ThemeData appTheme() {
       )
     ),
     iconTheme: iconThemeData(),
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      selectedItemColor: AppColors.primary,
+    ),
 
-    )
   );
 }
 

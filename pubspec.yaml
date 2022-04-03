@@ -37,6 +37,7 @@ dependencies:
   get: ^4.6.1
   google_fonts:
   animated_text_kit: ^4.2.1
+  preload_page_view:
 
 dev_dependencies:
   flutter_test:
