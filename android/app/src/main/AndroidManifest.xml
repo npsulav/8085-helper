@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.a_8085_helper">
    <application
-        android:label="a_8085_helper"
+        android:label="8085 Assembler"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

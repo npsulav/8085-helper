@@ -1,3 +1,3 @@
 class AppStrings {
-  static const String appName = "8085 Helper";
+  static const String appName = "8085 Assembler";
 }
