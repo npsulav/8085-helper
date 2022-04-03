@@ -1,9 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.a_8085_helper">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    
    <application
         android:label="8085 Assembler"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+       
         <activity
             android:name=".MainActivity"
             android:exported="true"

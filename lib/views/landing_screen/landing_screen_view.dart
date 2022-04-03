@@ -19,7 +19,7 @@ class LandingScreenView extends StatefulWidget {
 
 class _LandingScreenViewState extends State<LandingScreenView> {
   final LandingScreenLogic logic = Get.put(LandingScreenLogic());
-  var datas = ApiCalls().getVideos();
+
 
   @override
   void initState() {
@@ -71,7 +71,7 @@ class _LandingScreenViewState extends State<LandingScreenView> {
       Padding(
         padding: const EdgeInsets.only(left: 15.0,right: 15),
         child: FutureBuilder<Response>(
-          future: datas,
+          future: ApiCalls().getVideos(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if(snapshot.hasData) {
