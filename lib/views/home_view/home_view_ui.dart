@@ -43,7 +43,7 @@ class _HomeViewViewState extends State<HomeViewView> {
           setState(() {});
         },
         children: [
-          RefrenceScreenView(),
+          SimulatorScreenView(),
           LandingScreenView(),
           ToolsScreenView()
         ],

@@ -35,3 +35,6 @@ IconThemeData iconThemeData() {
   );
 }
 
+TextStyle bitDisplay() {
+  return GoogleFonts.orbitron(color: const Color(0xffE10A00), fontSize: 30);
+}

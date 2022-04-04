@@ -2,7 +2,8 @@
     package="com.example.a_8085_helper">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    
+    <uses-permission android:name="android.permission.VIBRATE" />
+
    <application
         android:label="8085 Assembler"
         android:name="${applicationName}"

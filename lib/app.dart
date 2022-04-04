@@ -24,7 +24,7 @@ class BaseApp extends StatelessWidget {
         GetPage(name: '/home', page: () => HomeViewView()),
         GetPage(name: '/assembler', page: () => AssemblerScreenView()),
         GetPage(name: '/landing', page: () => LandingScreenView()),
-        GetPage(name: '/reference', page: () => RefrenceScreenView()),
+        GetPage(name: '/reference', page: () => SimulatorScreenView()),
       ],
       initialRoute: '/',
     );
